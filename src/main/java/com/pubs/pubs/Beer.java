@@ -2,21 +2,21 @@ package com.pubs.pubs;
 
 import java.util.List;
 
-// import java.util.HashSet;
-// import java.util.Set;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-// import javax.persistence.ManyToMany;
+import javax.persistence.ManyToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Beer {
@@ -28,9 +28,9 @@ public class Beer {
     public String kind;
     public Boolean isAlcoholic;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "beers")
-    // public Set<Pub> pubs = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(mappedBy = "beers")
+    public Set<Pub> pubs = new HashSet<>();
 
     public Beer() {
     }
