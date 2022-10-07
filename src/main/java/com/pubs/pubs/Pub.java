@@ -44,6 +44,9 @@ class PubController {
     @Autowired
     private PubRepo pubRepo;
 
+    @Autowired
+    private BeerRepo beerRepo;
+
     @GetMapping("/pubs")
     public List<Pub> getAllPubs() {
         return pubRepo.findAll();
@@ -53,6 +56,20 @@ class PubController {
     public Pub createPub(@RequestBody Pub pubData) {
         return pubRepo.save(pubData);
     }
+
+    @PostMapping("/pubBeers")
+    public void createPubBeers(@RequestBody PubAndBeerIds body) {
+        Pub pub = pubRepo.findById(body.pubId).get();
+        Beer beer = beerRepo.findById(body.beerId).get();
+
+        pub.beers.add(beer);
+        pubRepo.save(pub);
+    }
+}
+
+class PubAndBeerIds {
+    public Integer pubId;
+    public Integer beerId;
 
 }
 
