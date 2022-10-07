@@ -58,12 +58,13 @@ class PubController {
     }
 
     @PostMapping("/pubBeers")
-    public void createPubBeers(@RequestBody PubAndBeerIds body) {
+    public Message createPubBeers(@RequestBody PubAndBeerIds body) {
         Pub pub = pubRepo.findById(body.pubId).get();
         Beer beer = beerRepo.findById(body.beerId).get();
 
         pub.beers.add(beer);
         pubRepo.save(pub);
+        return new Message("Beer added successfully.");
     }
 }
 
@@ -71,6 +72,14 @@ class PubAndBeerIds {
     public Integer pubId;
     public Integer beerId;
 
+}
+
+class Message {
+    public String message;
+
+    public Message(String message) {
+        this.message = message;
+    }
 }
 
 interface PubRepo extends JpaRepository<Pub, Integer> {
