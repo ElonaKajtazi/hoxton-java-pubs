@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,6 +46,11 @@ class BeerController {
     @GetMapping("/beers")
     public List<Beer> getAllBeers() {
         return beerRepo.findAll();
+    }
+
+    @PostMapping("/beers")
+    public Beer creatBeer(@RequestBody Beer beerData) {
+        return beerRepo.save(beerData);
     }
 }
 
